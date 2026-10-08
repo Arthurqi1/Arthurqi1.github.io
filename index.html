@@ -102,7 +102,15 @@
         </div>
       </div>
       <div class="portrait-wrap">
-        <img class="portrait" src="assets/profile.jpg" alt="Yue Qi">
+        <div class="portrait-panel">
+          <div class="portrait-frame">
+            <img id="profile-photo" class="portrait" src="assets/profile.jpg" alt="Yue Qi">
+          </div>
+          <div class="portrait-switcher" aria-label="Select profile photograph">
+            <button class="portrait-option active" type="button" data-src="assets/profile.jpg" aria-pressed="true">01</button>
+            <button class="portrait-option" type="button" data-src="assets/profile2.jpg" aria-pressed="false">02</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -306,5 +314,20 @@
   </footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    const profilePhoto = document.getElementById('profile-photo');
+    const portraitOptions = document.querySelectorAll('.portrait-option');
+
+    portraitOptions.forEach((button) => {
+      button.addEventListener('click', () => {
+        profilePhoto.src = button.dataset.src;
+        portraitOptions.forEach((option) => {
+          const selected = option === button;
+          option.classList.toggle('active', selected);
+          option.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
